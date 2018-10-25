@@ -1,0 +1,29 @@
+##
+# Docker configuration for running pa11y tests & displaying results.
+##
+version: '3.3'
+services:
+  
+
+  # docker-compose -f build.yml run --rm pa11y
+  pa11y:
+    image: outrigger/pa11y:dev
+    container_name: pa11y
+    command: bash -c "cd /code/pa11y && pa11y-ci --json > report.json"
+    volumes:
+      # pa11y-ci works by default with a .pa11yci file
+      - ./tests/pa11y/:/code/pa11y/
+    cap_add:
+      - SYS_ADMIN
+
+  # a service to spin up the pa11y result dashboard
+  dashboard:
+    image: theffner/vue-pa11y
+    container_name: pa11ydash
+#    environment:
+#      # These are used to present itself in the devcloud
+#      VIRTUAL_HOST: vrt.dia.ci.p2devcloud.com
+    volumes:
+      - type: bind
+        source: ./tests/pa11y
+        target: /app
