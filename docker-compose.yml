@@ -20,10 +20,11 @@ services:
   dashboard:
     image: theffner/vue-pa11y
     container_name: pa11ydash
-#    environment:
-#      # These are used to present itself in the devcloud
-#      VIRTUAL_HOST: vrt.dia.ci.p2devcloud.com
+    network_mode: bridge
+    environment:
+      DNSDOCK_NAME: www
+      DNSDOCK_IMAGE: pa11y
     volumes:
       - type: bind
-        source: ./tests/pa11y
-        target: /app
+        source: ./tests
+        target: /app/tests
