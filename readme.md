@@ -8,7 +8,7 @@ the second service (dashboard) is a container that hosts a simple webpack-dev-se
 
 # quick start
 
-edit .pa11yci with your desired rules & testing urls. at a minimum the urls array **must** be defined.
+edit `./tests/pa11y/.pa11yci` with your desired rules & testing urls. at a minimum the urls array **must** be defined.
 
     docker-compose run pa11y
     docker-compose run dashboard
